@@ -19,8 +19,8 @@ RUN npm install --global grunt
 RUN npm install --global grunt-cli bower grunt-karma karma karma-phantomjs-launcher karma-jasmine jasmine-core phantomjs-prebuilt --save-dev
 RUN bower install --allow-root
 RUN grunt build
-RUN mkdir /var/www/html/backend_jars
-RUN cp ../vta*.jar /var/www/html/backend_jars/
+#RUN mkdir /var/www/html/backend_jars
+RUN cp ../vta*.jar /var/www/html/
 RUN cp -avr /tmp/vas_app/autoweb/dist/. /var/www/html/
 RUN sed -i -e 's/8080/8070/g' /usr/local/tomcat/conf/server.xml \
         && echo "ServerName localhost" | sudo tee /etc/apache2/conf-available/servername.conf \
