@@ -3,8 +3,8 @@ FROM tomcat
 MAINTAINER Garegin Ayvazyan <garegin.ayvazyan@ucom.am>, <garegin.ayvazyan@hotmail.com>
 
 #Installing basic tools
-RUN apt-get update \
-    && apt-get install -y git curl wget net-tools vim elinks sudo gnupg gnupg2 gnupg1 software-properties-common alien libaio1 apache2
+RUN apt-get update && \
+    apt-get install -y git curl wget net-tools vim elinks sudo gnupg gnupg2 gnupg1 software-properties-common alien libaio1 apache2
     
 #Get and install nodejs,npm
 RUN curl --silent --location https://deb.nodesource.com/setup_6.x | sudo bash -
@@ -27,15 +27,15 @@ ENV LD_LIBRARY_PATH=/usr/local/tomcat/native-jni-lib:/usr/lib/oracle/11.2/client
 WORKDIR /tmp/vas_app/autoweb/
 
 #Install grunt, bower, karma and related dependencies and build application
-RUN npm install \
-    && npm install --global grunt grunt-cli bower grunt-karma karma karma-phantomjs-launcher karma-jasmine jasmine-core phantomjs-prebuilt --save-dev
-RUN bower install --allow-root \
-    && grunt build
+RUN npm install && \
+    npm install --global grunt grunt-cli bower grunt-karma karma karma-phantomjs-launcher karma-jasmine jasmine-core phantomjs-prebuilt --save-dev
+RUN bower install --allow-root && \
+    grunt build
     
 #Copy Jar files to Apache root directory
-RUN cp ../vta*.jar /var/www/html/ \
-    && cp -avr /tmp/vas_app/autoweb/dist/. /var/www/html/
+RUN cp ../vta*.jar /var/www/html/ && \
+    cp -avr /tmp/vas_app/autoweb/dist/. /var/www/html/
     
 #Change default 8080 port to 8070 for Tomcat    
-RUN sed -i -e 's/8080/8070/g' /usr/local/tomcat/conf/server.xml \
-    && echo "ServerName localhost" | sudo tee /etc/apache2/conf-available/servername.conf \
+RUN sed -i -e 's/8080/8070/g' /usr/local/tomcat/conf/server.xml && \
+    echo "ServerName localhost" | sudo tee /etc/apache2/conf-available/servername.conf \
