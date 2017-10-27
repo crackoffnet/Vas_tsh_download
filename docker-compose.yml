@@ -6,6 +6,7 @@ services:
     hostname: vasprod.local
     command: --domain=vasprod.local --realm=vasprod.local
     ports:
+      - "8091:8091"
       - "8080:8080"
       - "8070:8070"
       - "9000:9000"
@@ -25,6 +26,7 @@ services:
     command: --domain=vasdev.local --realm=vasdev.local
     build: .
     ports:
+     - "8092:8091"
      - "8081:8080"
      - "8071:8070"
      - "9001:9000"
