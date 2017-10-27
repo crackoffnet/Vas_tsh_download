@@ -20,10 +20,9 @@ RUN alien -i oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm
 RUN alien -i oracle-instantclient11.2-jdbc-11.2.0.3.0-1.x86_64.rpm
 RUN alien -i oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm
 
-#Setup Oracle and Tomcat environments
-ENV ORACLE_HOME=/usr/lib/oracle/11.2/client64 \
-    && PATH=$PATH:$ORACLE_HOME/bin \
-    && LD_LIBRARY_PATH=/usr/local/tomcat/native-jni-lib:/usr/lib/oracle/11.2/client64/lib/${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+ENV ORACLE_HOME=/usr/lib/oracle/11.2/client64
+ENV PATH=$PATH:$ORACLE_HOME/bin
+ENV LD_LIBRARY_PATH=/usr/local/tomcat/native-jni-lib:/usr/lib/oracle/11.2/client64/lib/${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
 WORKDIR /tmp/vas_app/autoweb/
 
 RUN npm install
