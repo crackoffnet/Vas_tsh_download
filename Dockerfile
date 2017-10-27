@@ -6,8 +6,10 @@ MAINTAINER Garegin Ayvazyan <garegin.ayvazyan@ucom.am>, <garegin.ayvazyan@hotmai
 RUN apt-get update \
     && apt-get install -y git curl wget net-tools vim elinks sudo gnupg gnupg2 gnupg1 software-properties-common alien libaio1 apache2
     
+#Get and install nodejs,npm
 RUN curl --silent --location https://deb.nodesource.com/setup_6.x | sudo bash -
 RUN apt-get install -y nodejs build-essential npm
+
 RUN git clone https://github.com/crackoffnet/vas_app.git /tmp/vas_app/
 WORKDIR /tmp/vas_app/
 RUN alien -i oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm
