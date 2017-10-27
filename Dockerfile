@@ -14,10 +14,12 @@ RUN apt-get install -y nodejs build-essential npm
 RUN git clone https://github.com/crackoffnet/vas_app.git /tmp/vas_app/
 WORKDIR /tmp/vas_app/
 
-RUN alien -i oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm
-RUN alien -i oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm
-RUN alien -i oracle-instantclient11.2-jdbc-11.2.0.3.0-1.x86_64.rpm
-RUN alien -i oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm
+#Installing Oracle instant client for DB connections
+RUN alien -i oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm \
+    && alien -i oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm \
+    && alien -i oracle-instantclient11.2-jdbc-11.2.0.3.0-1.x86_64.rpm \
+    && alien -i oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm
+
 ENV ORACLE_HOME=/usr/lib/oracle/11.2/client64
 ENV PATH=$PATH:$ORACLE_HOME/bin
 ENV LD_LIBRARY_PATH=/usr/local/tomcat/native-jni-lib:/usr/lib/oracle/11.2/client64/lib/${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
