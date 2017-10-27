@@ -20,6 +20,7 @@ RUN alien -i oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm
 RUN alien -i oracle-instantclient11.2-jdbc-11.2.0.3.0-1.x86_64.rpm
 RUN alien -i oracle-instantclient11.2-sqlplus-11.2.0.3.0-1.x86_64.rpm
 
+#Setup Oracle and Tomcat environments
 ENV ORACLE_HOME=/usr/lib/oracle/11.2/client64
 ENV PATH=$PATH:$ORACLE_HOME/bin
 ENV LD_LIBRARY_PATH=/usr/local/tomcat/native-jni-lib:/usr/lib/oracle/11.2/client64/lib/${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
@@ -31,7 +32,10 @@ RUN npm install \
 RUN bower install --allow-root \
     && grunt build
     
-RUN cp ../vta*.jar /var/www/html/
-RUN cp -avr /tmp/vas_app/autoweb/dist/. /var/www/html/
+#Copy Jar files to Apache root directory
+RUN cp ../vta*.jar /var/www/html/ \
+    && cp -avr /tmp/vas_app/autoweb/dist/. /var/www/html/
+    
+#Change default 8080 port to 8070 for Tomcat    
 RUN sed -i -e 's/8080/8070/g' /usr/local/tomcat/conf/server.xml \
-        && echo "ServerName localhost" | sudo tee /etc/apache2/conf-available/servername.conf \
+    && echo "ServerName localhost" | sudo tee /etc/apache2/conf-available/servername.conf \
