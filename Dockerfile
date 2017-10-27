@@ -26,16 +26,12 @@ ENV ORACLE_HOME=/usr/lib/oracle/11.2/client64 \
     && LD_LIBRARY_PATH=/usr/local/tomcat/native-jni-lib:/usr/lib/oracle/11.2/client64/lib/${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
 WORKDIR /tmp/vas_app/autoweb/
 
-#Install grunt, bower, karma and related dependencies and build application
-RUN npm install \
-    && npm install --global grunt grunt-cli bower grunt-karma karma karma-phantomjs-launcher karma-jasmine jasmine-core phantomjs-prebuilt --save-dev
-RUN bower install --allow-root \
-    && grunt build
-    
-#Copy Jar files to Apache root directory
-RUN cp ../vta*.jar /var/www/html/ \
-    && cp -avr /tmp/vas_app/autoweb/dist/. /var/www/html/
-    
-#Change default 8080 port to 8070 for Tomcat    
+RUN npm install
+RUN npm install --global grunt
+RUN npm install --global grunt-cli bower grunt-karma karma karma-phantomjs-launcher karma-jasmine jasmine-core phantomjs-prebuilt --save-dev
+RUN bower install --allow-root
+RUN grunt build
+RUN cp ../vta*.jar /var/www/html/
+RUN cp -avr /tmp/vas_app/autoweb/dist/. /var/www/html/
 RUN sed -i -e 's/8080/8070/g' /usr/local/tomcat/conf/server.xml \
-    && echo "ServerName localhost" | sudo tee /etc/apache2/conf-available/servername.conf \
+        && echo "ServerName localhost" | sudo tee /etc/apache2/conf-available/servername.conf \
