@@ -10,8 +10,10 @@ RUN apt-get update \
 RUN curl --silent --location https://deb.nodesource.com/setup_6.x | sudo bash -
 RUN apt-get install -y nodejs build-essential npm
 
+#Pull Github repository for Dockerfile, docker-compose.yml, startup scripts
 RUN git clone https://github.com/crackoffnet/vas_app.git /tmp/vas_app/
 WORKDIR /tmp/vas_app/
+
 RUN alien -i oracle-instantclient11.2-basic-11.2.0.3.0-1.x86_64.rpm
 RUN alien -i oracle-instantclient11.2-devel-11.2.0.3.0-1.x86_64.rpm
 RUN alien -i oracle-instantclient11.2-jdbc-11.2.0.3.0-1.x86_64.rpm
