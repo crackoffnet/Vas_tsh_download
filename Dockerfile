@@ -3,7 +3,8 @@ FROM tomcat
 MAINTAINER Garegin Ayvazyan <garegin.ayvazyan@ucom.am>, <garegin.ayvazyan@hotmail.com>
 
 #Installing basic tools
-RUN apt-get update && apt-get install -y git curl wget net-tools vim elinks sudo gnupg gnupg2 gnupg1 software-properties-common alien libaio1 apache2
+RUN apt-get update && \
+    apt-get install -y git curl wget net-tools vim elinks sudo gnupg gnupg2 gnupg1 software-properties-common alien libaio1 apache2
 
 #Get and install nodejs,npm
 RUN curl --silent --location https://deb.nodesource.com/setup_6.x | sudo bash -
